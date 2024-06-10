@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'users',
     'dashboard',
     'finance',
-    'security',
 ]
 
 MIDDLEWARE = [
