@@ -1,6 +1,8 @@
 from django.db import models # type: ignore
 from django.contrib.auth.models import User
-    
+
+
+#goals
 class Goals(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
@@ -22,6 +24,7 @@ class Goals(models.Model):
     def __str__(self):
         return self.name
 
+#income
 class Income(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     monthly_salary = models.DecimalField(max_digits=10, decimal_places=2)

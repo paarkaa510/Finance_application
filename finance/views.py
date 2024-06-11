@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from finance_application.forms import GoalForm, IncomeForm
 from finance.models import Goals,Income
 from django.db.models import Sum
+from django.shortcuts import get_object_or_404
+
 #goal app
 @login_required
 def create_goal(request):
