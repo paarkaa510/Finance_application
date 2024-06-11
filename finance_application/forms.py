@@ -1,5 +1,5 @@
 from django import forms
-from finance.models import Goals,Income,Expenses
+from finance.models import Goals,Income,Expenses,Savings
 from datetime import date
 
 class GoalForm(forms.ModelForm):
@@ -38,3 +38,8 @@ class ExpenseForm(forms.ModelForm):
     class Meta:
         model = Expenses
         fields = ['amount', 'description', 'category']
+
+class SavingsForm(forms.ModelForm):
+    class Meta:
+        model = Savings
+        fields = ['amount']

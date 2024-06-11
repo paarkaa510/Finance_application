@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from finance_application.forms import GoalForm, IncomeForm , ExpenseForm
-from finance.models import Goals,Income,Expenses
+from finance_application.forms import GoalForm, IncomeForm , ExpenseForm, SavingsForm
+from finance.models import Goals,Income,Expenses,Savings
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 
@@ -57,6 +57,25 @@ def create_expense(request):
         form = ExpenseForm()
         
     return render(request, 'create_expense.html', {'form': form})
+
+
+#savings app
+@login_required
+def create_saving(request):
+    if request.method == 'POST':
+        form = SavingsForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            savings = form.save(commit=False)
+            savings.user = user
+            savings.save()
+            savings = Savings.objects.filter(user=user)
+            return redirect('home') 
+    else:
+        form = SavingsForm()
+    return render(request, 'create_saving.html', {'form': form})
+
+
 
 
 

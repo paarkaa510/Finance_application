@@ -19,4 +19,6 @@ urlpatterns = [
     path("create-income/", create_income, name="create_income"),
 
     path("create-expense/", create_expense, name="create_expense"),
+
+    path("create-saving/", create_saving, name="create_saving"),
 ]

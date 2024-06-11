@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}Create Expense{% endblock %}
+{% block title %}Create Savings{% endblock %}
 
 {% block content %}
     {% if user.is_authenticated %}
-        <h2>Create a New Expense</h2>
+        <h2>Create a New Savings</h2>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Save Expense</button>
+            <button type="submit">Save Savings</button>
         </form>
     {% else %}
-        <p>You need to be logged in to create a goal.</p>
+        <p>You need to be logged in to create a savings.</p>
     {% endif %}
 {% endblock %}
