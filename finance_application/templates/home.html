@@ -11,6 +11,14 @@
         <div>
             <h2>Hi {{ user.username }}!</h2>
             <p>Total Income: {{ total_income_sum }}</p>
+            <p>Expenses:</p>
+<ul>
+    {% for expense in expenses %}
+        <li>{{ expense }}</li>
+    {% empty %}
+        <li>No expenses yet.</li>
+    {% endfor %}
+</ul>
             <ul>
 
                 {% for goal in goals %}

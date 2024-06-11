@@ -1,7 +1,6 @@
 from django import forms
-from finance.models import Goals
+from finance.models import Goals,Income,Expenses
 from datetime import date
-from finance.models import Income
 
 class GoalForm(forms.ModelForm):
     target_date = forms.DateField(
@@ -33,3 +32,9 @@ class IncomeForm(forms.ModelForm):
         
         if other_income is not None and other_income < 0:
             self.add_error('other_income', "Other income cannot be negative.")
+
+
+class ExpenseForm(forms.ModelForm):
+    class Meta:
+        model = Expenses
+        fields = ['amount', 'description', 'category']

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from finance_application.forms import GoalForm, IncomeForm
-from finance.models import Goals,Income
+from finance_application.forms import GoalForm, IncomeForm , ExpenseForm
+from finance.models import Goals,Income,Expenses
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 
@@ -20,7 +20,6 @@ def create_goal(request):
     return render(request, 'create_goal.html', {'form': form})
 
 
-
 @login_required
 def delete_goal(request, goal_id):
     goal = get_object_or_404(Goals, id=goal_id, user=request.user)
@@ -30,7 +29,7 @@ def delete_goal(request, goal_id):
 
 #income app
 @login_required
-def income(request):
+def create_income(request):
     if request.method == 'POST':
         form = IncomeForm(request.POST)
         if form.is_valid():
@@ -41,8 +40,23 @@ def income(request):
     else:
         form = IncomeForm()
 
-    return render(request, 'income.html', {'form': form})
+    return render(request, 'create_income.html', {'form': form})
 
+#expenses app
+@login_required
+def create_expense(request):
+    if request.method == 'POST':
+        form = ExpenseForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            expense = form.save(commit=False)
+            expense.user = user
+            expense.save()
+            return redirect('home') 
+    else:
+        form = ExpenseForm()
+        
+    return render(request, 'create_expense.html', {'form': form})
 
 
 
@@ -52,4 +66,5 @@ def user_goals(request):
     goals = Goals.objects.filter(user=user)
     total_income = Income.objects.filter(user=user).aggregate(Sum('monthly_salary'), Sum('other_income'))
     total_income_sum = total_income['monthly_salary__sum'] + total_income['other_income__sum']
-    return render(request, 'home.html', {'goals': goals, 'total_income_sum': total_income_sum})
+    expenses = Expenses.objects.filter(user_id=user)
+    return render(request, 'home.html', {'goals': goals, 'total_income_sum': total_income_sum,'expenses': expenses })
