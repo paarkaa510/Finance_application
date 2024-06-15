@@ -20,7 +20,10 @@ urlpatterns = [
 
     path("create-income/", create_income, name="create_income"),
 
+    path('user-expenses/', user_expenses, name='expense_home'),
     path("create-expense/", create_expense, name="create_expense"),
+    path('delete-expense/<int:expense_id>/', delete_expense, name='delete_expense'),
+    path('update-expense/<int:expense_id>/', update_expense, name='update_expense'),
 
     path("create-saving/", create_saving, name="create_saving"),
 ]

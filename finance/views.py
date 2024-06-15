@@ -58,6 +58,40 @@ def create_expense(request):
         
     return render(request, 'create_expense.html', {'form': form})
 
+@login_required
+def user_expenses(request):
+    user = request.user
+    user_id = user.id
+    expenses = Expenses.objects.filter(user_id=user_id)
+    return render(request, 'expense_home.html', {'expenses': expenses})
+
+@login_required
+def delete_expense(request, expense_id):
+    expense = get_object_or_404(Expenses, id=expense_id, user=request.user)
+    user = request.user
+    user_id = user.id
+    expenses = Expenses.objects.filter(user_id=user_id)
+    if request.method == "POST":
+        expense.delete()
+        return render(request, 'expense_home.html', {'expenses':expenses})
+    return render(request, 'expense_home.html', {'expenses': expenses})
+
+@login_required
+def update_expense(request, expense_id):
+    expense = get_object_or_404(Expenses, id=expense_id, user=request.user)
+    user = request.user
+    user_id = user.id
+    expenses = Expenses.objects.filter(user_id=user_id)
+    if request.method == 'POST':
+        form = ExpenseForm(request.POST, instance=expense)
+        if form.is_valid():
+            form.save()
+            return render(request, 'expense_home.html', {'expenses': expenses})
+    else:
+        form = ExpenseForm(instance=expense)
+    return render(request, 'update_expense.html', {'form': form})
+
+
 
 #savings app
 @login_required

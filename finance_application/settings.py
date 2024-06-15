@@ -57,7 +57,13 @@ ROOT_URLCONF = 'finance_application.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'finance_application' ,'templates'),],
+        'DIRS': [os.path.join(BASE_DIR,'finance_application' ,'templates'),
+                 os.path.join(BASE_DIR,'finance_application' ,'templates',"expenses"),
+                 os.path.join(BASE_DIR,'finance_application' ,'templates',"goals"),
+                 os.path.join(BASE_DIR,'finance_application' ,'templates', "incomes"),
+                 os.path.join(BASE_DIR,'finance_application' ,'templates', "savings"),],
+
+                
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -44,11 +44,20 @@ class Income(models.Model):
         return f"{self.user.username}'s income"
     
 #expenses
+
+CATEGORY_CHOICES = [
+    ('Housing', 'Housing'),
+    ('Utilities', 'Utilities'),
+    ('Food', 'Food'),
+    ('Leisure', 'Leisure'),
+    ('Other', 'Other'),
+]
+
 class Expenses(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     description = models.CharField(max_length=400)
-    category = models.CharField(max_length=40)
+    category = models.CharField(max_length=40, choices=CATEGORY_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
