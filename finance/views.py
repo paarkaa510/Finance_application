@@ -84,6 +84,8 @@ def user_goals(request):
     user = request.user
     goals = Goals.objects.filter(user=user)
     total_income = Income.objects.filter(user=user).aggregate(Sum('monthly_salary'), Sum('other_income'))
-    total_income_sum = total_income['monthly_salary__sum'] + total_income['other_income__sum']
+    monthly_salary_sum = total_income['monthly_salary__sum']
+    other_income_sum = total_income['other_income__sum']
+    total_income_sum = (monthly_salary_sum if monthly_salary_sum else 0) + (other_income_sum if other_income_sum else 0)
     expenses = Expenses.objects.filter(user_id=user)
     return render(request, 'home.html', {'goals': goals, 'total_income_sum': total_income_sum,'expenses': expenses })
