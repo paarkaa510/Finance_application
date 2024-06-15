@@ -123,3 +123,8 @@ def user_goals(request):
     total_income_sum = (monthly_salary_sum if monthly_salary_sum else 0) + (other_income_sum if other_income_sum else 0)
     expenses = Expenses.objects.filter(user_id=user)
     return render(request, 'home.html', {'goals': goals, 'total_income_sum': total_income_sum,'expenses': expenses })
+
+
+@login_required
+def home(request):
+    return render(request, 'home.html')

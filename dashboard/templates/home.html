@@ -1,0 +1,25 @@
+<!-- templates/home.html -->
+{% extends "base.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    </ul>
+    <a href="{% url 'password_change' %}">Change Password</a>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Log Out</button>
+    </form>
+{% else %}
+    <div>
+        <p>You are not logged in</p>
+        <a href="{% url 'password_reset' %}">Reset Password</a>
+        <a href="{% url 'login' %}">Log In</a>
+        <a href="{% url 'signup' %}">Sign Up</a>
+    </div>
+{% endif %}
+
+{% endblock content %}
