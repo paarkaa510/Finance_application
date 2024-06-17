@@ -128,7 +128,7 @@ def update_expense(request, expense_id):
 
 #savings app
 @login_required
-def create_saving(request):
+def create_savings(request):
     if request.method == 'POST':
         form = SavingsForm(request.POST)
         if form.is_valid():
@@ -137,14 +137,42 @@ def create_saving(request):
             savings.user = user
             savings.save()
             savings = Savings.objects.filter(user=user)
-            return redirect('home') 
+            return render(request, 'saving_home.html', {'savings': savings}) 
     else:
         form = SavingsForm()
-    return render(request, 'create_saving.html', {'form': form})
+    return render(request, 'create_savings.html', {'form': form})
 
+@login_required
+def user_savings(request):
+    user = request.user
+    savings = Savings.objects.filter(user=user)
+    return render(request, 'saving_home.html', {'savings': savings})
 
+@login_required
+def delete_savings(request, saving_id):
+    saving = get_object_or_404(Savings, id=saving_id, user=request.user)
+    user = request.user
+    user_id = user.id
+    savings = Savings.objects.filter(user_id=user_id)
+    if request.method == "POST":
+        saving.delete()
+        return render(request, 'saving_home.html', {'savings':savings})
+    return render(request, 'saving_home.html', {'savings': savings})
 
-
+@login_required
+def update_saving(request, saving_id):
+    saving = get_object_or_404(Savings, id=saving_id, user=request.user)
+    user = request.user
+    user_id = user.id
+    savings = Savings.objects.filter(user_id=user_id)
+    if request.method == 'POST':
+        form = SavingsForm(request.POST, instance=saving)
+        if form.is_valid():
+            form.save()
+            return render(request, 'saving_home.html', {'savings': savings})
+    else:
+        form = SavingsForm(instance=saving)
+    return render(request, 'update_saving.html', {'form': form})
 
 @login_required
 def user_goals(request):

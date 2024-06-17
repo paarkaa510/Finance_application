@@ -76,5 +76,15 @@ class Savings(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def save(self, *args, **kwargs):
+        if isinstance(self.amount, str):
+            try:
+                self.amount = float(self.amount)
+            except ValueError:
+                raise ValidationError("Amount must be a number.")
+        if self.amount < 0:
+            raise ValueError("Savings amount cannot be below $0.")
+        super(Savings, self).save(*args, **kwargs)
+
     def __str__(self):
-        return f'{self.user.username} - {self.amount}' 
+        return f'{self.user.username} - {self.amount:.2f}'
