@@ -5,9 +5,11 @@ from .views import *
 app_name = 'finance'
 
 urlpatterns = [
-    path("", user_goals, name="home"),
+    path("", home, name="home"),
+    path('user-goals/', user_goals, name='user-goals'), 
     path("create-goal/", create_goal, name="create_goal"),
     path('delete-goal/<int:goal_id>/', delete_goal, name='delete_goal'),
+    path('update-goal/<int:goal_id>/', update_goal, name='update_goal'),
 
     path('user-income', user_incomes , name='user-income'),
     path("create-income/", create_income, name="create_income"),

@@ -11,21 +11,48 @@ def create_goal(request):
     if request.method == 'POST':
         form = GoalForm(request.POST)
         if form.is_valid():
+            user = request.user
             goal = form.save(commit=False)
-            goal.user = request.user
+            goal.user = user
             goal.save()
-            return redirect('home')  
+            goals = Goals.objects.filter(user=user)
+            return render(request, 'goal_home.html', {'goals': goals}) 
     else:
         form = GoalForm()
     return render(request, 'create_goal.html', {'form': form})
 
+@login_required
+def user_goals(request):
+    user = request.user
+    goals = Goals.objects.filter(user=user)
+    return render(request, 'goal_home.html', {'goals': goals})
 
 @login_required
 def delete_goal(request, goal_id):
     goal = get_object_or_404(Goals, id=goal_id, user=request.user)
-    goal.delete()
-    return redirect('home')
+    user = request.user
+    user_id = user.id
+    goals = Goals.objects.filter(user_id=user_id)
+    if request.method == "POST":
+        goal.delete()
+        return render(request, 'goal_home.html', {'goals':goals})
+    return render(request, 'goal_home.html', {'goals': goals})
 
+
+@login_required
+def update_goal(request, goal_id):
+    goal = get_object_or_404(Goals, id=goal_id, user=request.user)
+    user = request.user
+    user_id = user.id
+    goals = Goals.objects.filter(user_id=user_id)
+    if request.method == 'POST':
+        form = GoalForm(request.POST, instance=goal)
+        if form.is_valid():
+            form.save()
+            return render(request, 'goal_home.html', {'goals': goals})
+    else:
+        form = GoalForm(instance=goal)
+    return render(request, 'update_goal.html', {'form': form})
 
 #income app
 @login_required

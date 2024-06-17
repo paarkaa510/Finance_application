@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Goals</title>
+</head>
+<body>
+    {% block title %}Goals{% endblock %}
+
+    {% block content %}
+    {% if user.is_authenticated %}
+
+        <p>Hi {{ user.username }}!</p>
+        <h2>Your Goals:</h2>
+        <ul>
+            {% for goal in goals %}
+                <li>{{ goal.name }} - Current Amount/Target: ${{ goal.current_amount }}/${{ goal.target_amount }}
+                     - Goal Date {{ goal.target_date }}
+                    <form method="post" action="{% url 'finance:delete_goal' goal.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                    <a href="{% url 'finance:update_goal' goal.id %}">
+                        <button>Update</button>
+                    </a>
+                </li>
+            {% empty %}
+                <li>You have no goals.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'finance:create_goal' %}">
+            <button>Add Goal</button>
+        </a>
+    {% else %}
+        <p>You are not logged in</p>
+        <a href="{% url 'finance:login' %}">Log In</a>
+    {% endif %}
+    {% endblock %}
+</body>
+</html>
