@@ -9,7 +9,11 @@ urlpatterns = [
     path("create-goal/", create_goal, name="create_goal"),
     path('delete-goal/<int:goal_id>/', delete_goal, name='delete_goal'),
 
+    path('user-income', user_incomes , name='user-income'),
     path("create-income/", create_income, name="create_income"),
+    path('delete-income/<int:income_id>/', delete_income, name='delete_income'),
+    path('update-income/<int:income_id>/', update_income, name='update_income'),
+
 
     path('user-expenses/', user_expenses, name='expense_home'),
     path("create-expense/", create_expense, name="create_expense"),
