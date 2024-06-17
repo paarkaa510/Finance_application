@@ -8,11 +8,11 @@
         <ul>
             {% for expense in expenses %}
                 <li>Category: {{ expense.category }} - Description: {{ expense.description }} - Amount: {{ expense.amount }}
-                    <form method="post" action="{% url 'delete_expense' expense.id %}" style="display:inline;">
+                    <form method="post" action="{% url 'finance:delete_expense' expense.id %}" style="display:inline;">
                         {% csrf_token %}
                         <button type="submit">Delete</button>
                     </form>
-                    <a href="{% url 'update_expense' expense.id %}">
+                    <a href="{% url 'finance:update_expense' expense.id %}">
                         <button>Update</button>
                     </a>
                 </li>
@@ -20,11 +20,11 @@
                 <li>You have no expenses.</li>
             {% endfor %}
         </ul>
-        <a href="{% url 'create_expense' %}">
+        <a href="{% url 'finance:create_expense' %}">
             <button>Add Expense</button>
         </a>
     {% else %}
         <p>You are not logged in</p>
-        <a< href="{% url 'login' %}">Log In</a>
+        <a< href="{% url 'finance:login' %}">Log In</a>
     {% endif %}
 {% endblock %}
