@@ -19,11 +19,11 @@
         <ul>
             {% for saving in savings %}
                 <li>Amount: {{saving.amount}}
-                    <form method="post" action="{% url 'delete_savings' saving.id %}" style="display:inline;">
+                    <form method="post" action="{% url 'finance:delete_savings' saving.id %}" style="display:inline;">
                         {% csrf_token %}
                         <button type="submit">Delete</button>
                     </form>
-                    <a href="{% url 'update_saving' saving.id %}">
+                    <a href="{% url 'finance:update_saving' saving.id %}">
                         <button>Update</button>
                     </a>
                 </li>
@@ -31,12 +31,12 @@
                 <li>You have no savings.</li>
             {% endfor %}
         </ul>
-        <a href="{% url 'create_savings' %}">
+        <a href="{% url 'finance:create_saving' %}">
             <button>Add Savings</button>
         </a>
     {% else %}
         <p>You are not logged in</p>
-        <a href="{% url 'login' %}">Log In</a>
+        <a href="{% url 'finance:login' %}">Log In</a>
     {% endif %}
     {% endblock %}
 </body>

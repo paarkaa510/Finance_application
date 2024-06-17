@@ -140,7 +140,7 @@ def create_savings(request):
             return render(request, 'saving_home.html', {'savings': savings}) 
     else:
         form = SavingsForm()
-    return render(request, 'create_savings.html', {'form': form})
+    return render(request, 'create_saving.html', {'form': form})
 
 @login_required
 def user_savings(request):
@@ -174,6 +174,8 @@ def update_saving(request, saving_id):
         form = SavingsForm(instance=saving)
     return render(request, 'update_saving.html', {'form': form})
 
+
+#GOALS
 @login_required
 def user_goals(request):
     user = request.user

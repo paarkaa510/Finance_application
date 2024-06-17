@@ -20,5 +20,8 @@ urlpatterns = [
     path('delete-expense/<int:expense_id>/', delete_expense, name='delete_expense'),
     path('update-expense/<int:expense_id>/', update_expense, name='update_expense'),
 
-    path("create-saving/", create_saving, name="create_saving"),
+    path('user-savings', user_savings , name='user-savings'),
+    path('create-savings/', create_savings, name='create_saving'),
+    path('delete-savings/<int:saving_id>/', delete_savings, name='delete_savings'),
+    path('update-saving/<int:saving_id>/', update_saving, name='update_saving'),
 ]
