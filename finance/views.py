@@ -33,14 +33,47 @@ def create_income(request):
     if request.method == 'POST':
         form = IncomeForm(request.POST)
         if form.is_valid():
+            user = request.user
             income = form.save(commit=False)
             income.user = request.user
             income.save()
-            return redirect('home')  
+            incomes = Income.objects.filter(user=user)
+            return render(request, 'incomes_home.html', {'incomes': incomes}) 
     else:
         form = IncomeForm()
-
     return render(request, 'create_income.html', {'form': form})
+
+@login_required
+def user_incomes(request):
+    user = request.user
+    incomes = Income.objects.filter(user=user)
+    return render(request, 'incomes_home.html', {'incomes': incomes})
+
+@login_required
+def delete_income(request, income_id):
+    income = get_object_or_404(Income, id=income_id, user=request.user)
+    user = request.user
+    user_id = user.id
+    incomes = Income.objects.filter(user_id=user_id)
+    if request.method == "POST":
+        income.delete()
+        return render(request, 'incomes_home.html', {'incomes':incomes})
+    return render(request, 'incomes_home.html', {'incomes': incomes})
+
+@login_required
+def update_income(request, income_id):
+    income = get_object_or_404(Income, id=income_id, user=request.user)
+    user = request.user
+    user_id = user.id
+    incomes = Income.objects.filter(user_id=user_id)
+    if request.method == 'POST':
+        form = IncomeForm(request.POST, instance=income)
+        if form.is_valid():
+            form.save()
+            return render(request, 'incomes_home.html', {'incomes': incomes})
+    else:
+        form = IncomeForm(instance=income)
+    return render(request, 'update_income.html', {'form': form})
 
 #expenses app
 @login_required
