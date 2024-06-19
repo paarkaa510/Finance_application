@@ -2,11 +2,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Custom script loaded');
 
-    // Get the JSON data from the script tags
     const expensesData = JSON.parse(document.getElementById('expensesData').textContent);
     const goalsData = JSON.parse(document.getElementById('goalsData').textContent);
 
-    // Data for Pie Chart
     const expensesLabels = expensesData.map(expense => expense.category);
     const expensesAmounts = expensesData.map(expense => expense.total);
 
@@ -25,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Data for Bar Chart
     const goalsLabels = goalsData.map(goal => goal.name);
     const targetAmounts = goalsData.map(goal => goal.target_amount);
     const currentAmounts = goalsData.map(goal => goal.current_amount);

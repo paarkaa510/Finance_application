@@ -6,7 +6,6 @@ from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 import json
 
-#goal app
 @login_required
 def create_goal(request):
     if request.method == 'POST':
@@ -39,7 +38,6 @@ def delete_goal(request, goal_id):
         return render(request, 'goal_home.html', {'goals':goals})
     return render(request, 'goal_home.html', {'goals': goals})
 
-
 @login_required
 def update_goal(request, goal_id):
     goal = get_object_or_404(Goals, id=goal_id, user=request.user)
@@ -55,7 +53,6 @@ def update_goal(request, goal_id):
         form = GoalForm(instance=goal)
     return render(request, 'update_goal.html', {'form': form})
 
-#income app
 @login_required
 def create_income(request):
     if request.method == 'POST':
@@ -103,7 +100,6 @@ def update_income(request, income_id):
         form = IncomeForm(instance=income)
     return render(request, 'update_income.html', {'form': form})
 
-#expenses app
 @login_required
 def create_expense(request):
     if request.method == 'POST':
@@ -152,9 +148,6 @@ def update_expense(request, expense_id):
         form = ExpenseForm(instance=expense)
     return render(request, 'update_expense.html', {'form': form})
 
-
-
-#savings app
 @login_required
 def create_savings(request):
     if request.method == 'POST':
@@ -202,8 +195,6 @@ def update_saving(request, saving_id):
         form = SavingsForm(instance=saving)
     return render(request, 'update_saving.html', {'form': form})
 
-
-#GOALS
 @login_required
 def user_goals(request):
     user = request.user
@@ -215,13 +206,11 @@ def user_goals(request):
     expenses = Expenses.objects.filter(user_id=user)
     return render(request, 'goal_home.html', {'goals': goals, 'total_income_sum': total_income_sum,'expenses': expenses })
 
-
 @login_required
 def home(request):
     expenses = Expenses.objects.filter(user=request.user)
     goals = Goals.objects.filter(user=request.user)
-    
-    # Prepare data for charts
+
     expenses_by_category = list(expenses.values('category').annotate(total=Sum('amount')))
     goals_data = list(goals.values('name', 'target_amount', 'current_amount'))
     
