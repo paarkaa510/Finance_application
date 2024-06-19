@@ -4,6 +4,7 @@ from finance_application.forms import GoalForm, IncomeForm , ExpenseForm, Saving
 from finance.models import Goals,Income,Expenses,Savings
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
+import json
 
 #goal app
 @login_required
@@ -212,9 +213,29 @@ def user_goals(request):
     other_income_sum = total_income['other_income__sum']
     total_income_sum = (monthly_salary_sum if monthly_salary_sum else 0) + (other_income_sum if other_income_sum else 0)
     expenses = Expenses.objects.filter(user_id=user)
-    return render(request, 'home.html', {'goals': goals, 'total_income_sum': total_income_sum,'expenses': expenses })
+    return render(request, 'goal_home.html', {'goals': goals, 'total_income_sum': total_income_sum,'expenses': expenses })
 
 
 @login_required
 def home(request):
-    return render(request, 'home.html')
+    expenses = Expenses.objects.filter(user=request.user)
+    goals = Goals.objects.filter(user=request.user)
+    
+    # Prepare data for charts
+    expenses_by_category = list(expenses.values('category').annotate(total=Sum('amount')))
+    goals_data = list(goals.values('name', 'target_amount', 'current_amount'))
+    
+    # Convert Decimals to float for JSON serialization
+    for expense in expenses_by_category:
+        expense['total'] = float(expense['total'])
+    
+    for goal in goals_data:
+        goal['target_amount'] = float(goal['target_amount'])
+        goal['current_amount'] = float(goal['current_amount'])
+    
+    context = {
+        'expenses_by_category': json.dumps(expenses_by_category),
+        'goals_data': json.dumps(goals_data),
+    }
+    
+    return render(request, 'home.html', context)
