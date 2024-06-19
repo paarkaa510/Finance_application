@@ -5,6 +5,7 @@
 <head>
   <meta charset="utf-8">
   <title>{% block title %}BASE{% endblock %}</title>
+
 </head>
 
 <body>
@@ -20,6 +21,7 @@
     {% endif %}
     {% block content %}
     {% endblock %}
+    {% block extra_js %}{% endblock %}
   </main>
 </body>
 
