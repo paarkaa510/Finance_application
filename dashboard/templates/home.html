@@ -7,14 +7,7 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-    </ul>
-    <h1>Hello, USER!!</h1>
-    <a href="{% url 'password_change' %}">Change Password</a>
-    <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Log Out</button>
-    </form>
-
+    <h1>Hello, {{ user.username }}!!</h1>
     <div style="width: 600px; height: 300px;">
         <h2>Expenses Breakdown</h2>
         <canvas id="expensesPieChart"></canvas>
@@ -24,6 +17,15 @@
 
     <script id="expensesData" type="application/json">{{ expenses_by_category|safe }}</script>
     <script id="goalsData" type="application/json">{{ goals_data|safe }}</script>
+
+    <div class="fixed-bottom">
+        <div class = "container">
+        <a href="{% url 'password_change' %}">Change Password</a>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Log Out</button>
+        </form>
+    </div>
 {% else %}
     <div>
         <p>You are not logged in</p>
@@ -31,6 +33,7 @@
         <a href="{% url 'login' %}">Log In</a>
         <a href="{% url 'signup' %}">Sign Up</a>
     </div>
+    
 {% endif %}
 
 {% block extra_js %}
