@@ -204,7 +204,7 @@ def update_saving(request, saving_id):
 
 #GOALS
 @login_required
-def user_goals(request):
+def not_used_yet(request):
     user = request.user
     goals = Goals.objects.filter(user=user)
     total_income = Income.objects.filter(user=user).aggregate(Sum('monthly_salary'), Sum('other_income'))

@@ -1,10 +1,12 @@
 <!-- templates/base.html -->
+{% load static %}
 <!DOCTYPE html>
 <html>
 
 <head>
   <meta charset="utf-8">
   <title>{% block title %}BASE{% endblock %}</title>
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </head>
 
 <body>
@@ -12,10 +14,10 @@
     {% if user.is_authenticated %}
       <div class="navbar">
         <a href="/">Home</a>
-        <a href="/finance/create-savings">Add Savings Account</a>
-        <a href="/finance/create-goal">Add Goal</a>
-        <a href="/finance/create-income">Add Income</a>
-        <a href="/finance/create-expense">Add Expenses</a>
+        <a href="/finance/user-savings">Add Savings Account</a>
+        <a href="/finance/user-goals">Add Goal</a>
+        <a href="/finance/user-income">Add Income</a>
+        <a href="/finance/user-expenses">Add Expenses</a>
     </div>
     {% endif %}
     {% block content %}
