@@ -1,21 +1,11 @@
 {% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expenses</title>
-</head>
-<body>
+{% block title %}Incomes{% endblock %}
 
-
-    {% block title %}Income{% endblock %}
-
-    {% block content %}
+{% block content %}
     {% if user.is_authenticated %}
-        <p>Hi {{ user.username }}!</p>
-        <h2>Your Income Streams:</h2>
+    <h1>Hi {{ user.username }}!</h1>
+        <h1>Your Income Streams:</h1>
         <ul>
             {% for income in incomes %}
                 <li>Monthly Salary: {{income.monthly_salary}} Other Salary: {{income.other_income}}
@@ -38,6 +28,5 @@
         <p>You are not logged in</p>
         <a href="{% url 'finance:login' %}">Log In</a>
     {% endif %}
-    {% endblock %}
-</body>
-</html>
+{% endblock content %}
+
