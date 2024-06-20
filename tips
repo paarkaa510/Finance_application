@@ -13,3 +13,10 @@ python manage.py startapp myapp
 fdfdf
 
 
+to revert pull:
+1.git log
+3. Discard all changes in the working directory: git reset --hard HEAD
+4. Alternatively, if you want to keep the history and revert the merge commit:
+   git revert -m 1 1234567
+
+   

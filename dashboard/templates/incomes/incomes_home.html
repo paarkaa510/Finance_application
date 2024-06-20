@@ -1,30 +1,20 @@
 {% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expenses</title>
-</head>
-<body>
+{% block title %}Incomes{% endblock %}
 
-
-    {% block title %}Income{% endblock %}
-
-    {% block content %}
+{% block content %}
     {% if user.is_authenticated %}
-        <p>Hi {{ user.username }}!</p>
-        <h2>Your Income Streams:</h2>
+    <h1>Hi {{ user.username }}!</h1>
+        <h1>Your Income Streams:</h1>
         <ul>
             {% for income in incomes %}
                 <li>Monthly Salary: {{income.monthly_salary}} Other Salary: {{income.other_income}}
                     <form method="post" action="{% url 'finance:delete_income' income.id %}" style="display:inline;">
                         {% csrf_token %}
-                        <button type="submit">Delete</button>
+                        <button formnovalidate class = "btn btn-danger",type="submit">Delete</button>
                     </form>
                     <a href="{% url 'finance:update_income' income.id %}">
-                        <button>Update</button>
+                        <button formnovalidate class = "btn btn-warning",>Update</button>
                     </a>
                 </li>
             {% empty %}
@@ -32,12 +22,11 @@
             {% endfor %}
         </ul>
         <a href="{% url 'finance:create_income' %}">
-            <button>Add Income</button>
+            <button formnovalidate class = "btn btn-success",>Add Income</button>
         </a>
     {% else %}
         <p>You are not logged in</p>
         <a href="{% url 'finance:login' %}">Log In</a>
     {% endif %}
-    {% endblock %}
-</body>
-</html>
+{% endblock content %}
+
