@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from finance_application.forms import GoalForm, IncomeForm , ExpenseForm, SavingsForm
 from finance.models import Goals,Income,Expenses,Savings
-from django.db.models import Sum
+from django.db.models import Sum, F, ExpressionWrapper, DecimalField
 from django.shortcuts import get_object_or_404
 import json
 
@@ -210,7 +210,13 @@ def not_used_yet(request):
 def home(request):
     expenses = Expenses.objects.filter(user=request.user)
     goals = Goals.objects.filter(user=request.user)
+    savings = Savings.objects.filter(user=request.user)
+    incomes = Income.objects.filter(user=request.user)
 
+    total_savings = savings.aggregate(total=Sum('amount'))['total'] or 0
+    total_income = incomes.aggregate(
+        total=Sum(ExpressionWrapper(F('monthly_salary') + F('other_income'), output_field=DecimalField()))
+    )['total'] or 0
     expenses_by_category = list(expenses.values('category').annotate(total=Sum('amount')))
     goals_data = list(goals.values('name', 'target_amount', 'current_amount'))
     
@@ -225,6 +231,8 @@ def home(request):
     context = {
         'expenses_by_category': json.dumps(expenses_by_category),
         'goals_data': json.dumps(goals_data),
+        'total_savings': total_savings,
+        'total_income': total_income,
     }
     
     return render(request, 'home.html', context)
