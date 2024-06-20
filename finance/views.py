@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from finance_application.forms import GoalForm, IncomeForm , ExpenseForm, SavingsForm
 from finance.models import Goals,Income,Expenses,Savings
-from django.db.models import Sum, F, ExpressionWrapper, DecimalField
+from django.db.models import Sum,ExpressionWrapper,F,DecimalField
 from django.shortcuts import get_object_or_404
 import json
 
