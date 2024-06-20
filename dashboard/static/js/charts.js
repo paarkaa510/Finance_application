@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const goalsLabels = goalsData.map(goal => goal.name);
     const targetAmounts = goalsData.map(goal => goal.target_amount);
     const currentAmounts = goalsData.map(goal => goal.current_amount);
-
+    
     const ctxBar = document.getElementById('goalsBarChart').getContext('2d');
     if (window.goalsBarChart && typeof window.goalsBarChart.destroy === 'function') {
         window.goalsBarChart.destroy();
@@ -61,3 +61,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+

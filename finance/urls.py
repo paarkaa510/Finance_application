@@ -6,6 +6,8 @@ app_name = 'finance'
 
 urlpatterns = [
 
+    path("home/", home, name="home"),
+
     path('user-goals/', user_goals, name='user-goals'), 
     path("create-goal/", create_goal, name="create_goal"),
     path('delete-goal/<int:goal_id>/', delete_goal, name='delete_goal'),

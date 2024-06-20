@@ -11,10 +11,10 @@
                 <li>Monthly Salary: {{income.monthly_salary}} Other Salary: {{income.other_income}}
                     <form method="post" action="{% url 'finance:delete_income' income.id %}" style="display:inline;">
                         {% csrf_token %}
-                        <button type="submit">Delete</button>
+                        <button formnovalidate class = "btn btn-danger",type="submit">Delete</button>
                     </form>
                     <a href="{% url 'finance:update_income' income.id %}">
-                        <button>Update</button>
+                        <button formnovalidate class = "btn btn-warning",>Update</button>
                     </a>
                 </li>
             {% empty %}
@@ -22,7 +22,7 @@
             {% endfor %}
         </ul>
         <a href="{% url 'finance:create_income' %}">
-            <button>Add Income</button>
+            <button formnovalidate class = "btn btn-success",>Add Income</button>
         </a>
     {% else %}
         <p>You are not logged in</p>
