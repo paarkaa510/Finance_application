@@ -5,6 +5,11 @@ from finance.models import Goals,Income,Expenses,Savings
 from django.db.models import Sum,ExpressionWrapper,F,DecimalField
 from django.shortcuts import get_object_or_404
 import json
+from django.contrib.auth import logout
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
 
 @login_required
 def create_goal(request):

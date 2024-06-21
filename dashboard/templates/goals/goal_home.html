@@ -13,7 +13,6 @@
     {% block content %}
     {% if user.is_authenticated %}
 
-        <p>Hi {{ user.username }}!</p>
         <h2>Your Goals:</h2>
         <ul>
             {% for goal in goals %}
@@ -21,10 +20,10 @@
                      - Goal Date {{ goal.target_date }}
                     <form method="post" action="{% url 'finance:delete_goal' goal.id %}" style="display:inline;">
                         {% csrf_token %}
-                        <button type="submit">Delete</button>
+                        <button formnovalidate class = "btn btn-danger",type="submit">Delete</button>
                     </form>
                     <a href="{% url 'finance:update_goal' goal.id %}">
-                        <button>Update</button>
+                        <button formnovalidate class = "btn btn-warning",>Update</button>
                     </a>
                 </li>
             {% empty %}
@@ -32,7 +31,7 @@
             {% endfor %}
         </ul>
         <a href="{% url 'finance:create_goal' %}">
-            <button>Add Goal</button>
+            <button formnovalidate class = "btn btn-success",>Add Goal</button>
         </a>
     {% else %}
         <p>You are not logged in</p>
