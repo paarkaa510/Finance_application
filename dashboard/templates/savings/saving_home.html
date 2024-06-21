@@ -13,18 +13,16 @@
     {% block title %}Savings{% endblock %}
     {% block content %}
     {% if user.is_authenticated %}
-   
-        <p>Hi {{ user.username }}!</p>
         <h2>Your Savings:</h2>
         <ul>
             {% for saving in savings %}
                 <li>Amount: {{saving.amount}}
                     <form method="post" action="{% url 'finance:delete_savings' saving.id %}" style="display:inline;">
                         {% csrf_token %}
-                        <button type="submit">Delete</button>
+                        <button formnovalidate class = "btn btn-danger",type="submit">Delete</button>
                     </form>
                     <a href="{% url 'finance:update_saving' saving.id %}">
-                        <button>Update</button>
+                        <button formnovalidate class = "btn btn-warning",>Update</button>
                     </a>
                 </li>
             {% empty %}
@@ -32,7 +30,7 @@
             {% endfor %}
         </ul>
         <a href="{% url 'finance:create_saving' %}">
-            <button>Add Savings</button>
+            <button formnovalidate class = "btn btn-success",>Add Savings</button>
         </a>
     {% else %}
         <p>You are not logged in</p>
