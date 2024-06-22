@@ -45,3 +45,4 @@ class SavingsForm(forms.ModelForm):
     class Meta:
         model = Savings
         fields = ['amount']
+
