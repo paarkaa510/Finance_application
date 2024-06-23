@@ -5,6 +5,17 @@ from decimal import Decimal
 from datetime import date
 
 class ModelsTestCase(TestCase):
+
+    """
+    Test case for testing the models in the finance application.
+
+    This test case covers:
+    - Creating and saving Goals, Income, Expenses, and Savings instances.
+    - Ensuring that the fields are correctly saved.
+    - Validating that negative amounts raise a ValueError.
+    """
+
+
     def setUp(self):
         self.user = User.objects.create_user(username='testing1', password='%RDX$ESZ5rdx4esz')
 
@@ -40,7 +51,6 @@ class ModelsTestCase(TestCase):
         with self.assertRaises(ValueError):
             expense = Expenses(user=self.user, amount=Decimal('-200.00'), description='Test Expense', category='Test Category')
             expense.save()
-
         
         with self.assertRaises(ValueError):
             goal = Goals(name="Test", current_amount=-10, target_amount=100)

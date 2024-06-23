@@ -1,6 +1,20 @@
 from django.db import models
 
 class User(models.Model):
+
+    """
+    Model to represent a user in the system.
+    
+    Attributes:
+        id (AutoField): The primary key for the user.
+        first_name (CharField): The user's first name.
+        last_name (CharField): The user's last name.
+        email (EmailField): The user's email address.
+        password (CharField): The user's password.
+        created_at (DateTimeField): The timestamp when the user was created.
+        updated_at (DateTimeField): The timestamp when the user was last updated.
+    """
+
     id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
