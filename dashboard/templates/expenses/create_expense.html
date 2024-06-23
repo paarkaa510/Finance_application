@@ -6,10 +6,11 @@
     {% if user.is_authenticated %}
         <!-- Heading for the expense creation page -->
         <h2>Create a New Expense</h2>
+        
         <!-- Form to create a new expense -->
         <form method="post">
             {% csrf_token %} <!-- CSRF token for form security -->
-            {{ form.as_p }} <!-- Form fields for the expense -->
+            {{ form.as_p }} <!-- Render form fields as paragraphs -->
             <button type="submit">Save Expense</button> <!-- Button to submit the form -->
         </form>
     {% else %}

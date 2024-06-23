@@ -2,20 +2,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Metadata for character set and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Goal</title>
+    <title>Update Goal</title> <!-- Title of the page -->
 </head>
 <body>
 
+    <!-- Page title block -->    
     {% block title %}Update Goal{% endblock %}
 
+    <!-- Content block-->
     {% block content %}
+        <!-- Heading for the goal update section -->
         <h2>Update Goal</h2>
+
+        <!-- Form to update the goal -->
         <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Update</button>
+            {% csrf_token %} <!-- CSRF token for form security -->
+            {{ form.as_p }} <!-- Render form fields as paragraphs -->
+            <button type="submit">Update</button> <!-- Button to submit updated goal -->
         </form>
     {% endblock %}
 </body>

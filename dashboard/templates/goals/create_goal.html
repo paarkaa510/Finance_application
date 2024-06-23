@@ -1,16 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}Create Goal{% endblock %}
+{% block title %}Create Goal{% endblock %} <!-- Page title block -->
 
 {% block content %}
     {% if user.is_authenticated %}
+        <!-- Heading for the goal creation page -->
         <h2>Create a New Goal</h2>
+        <!-- Form to create a new goal -->
         <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Save Goal</button>
+            {% csrf_token %} <!-- CSRF token for form security -->
+            {{ form.as_p }} <!-- Render form fields as paragraphs -->
+            <button type="submit">Save Goal</button> <!-- Button to submit the form -->
         </form>
     {% else %}
+        <!-- Message for users who are not logged in -->
         <p>You need to be logged in to create a goal.</p>
     {% endif %}
 {% endblock %}

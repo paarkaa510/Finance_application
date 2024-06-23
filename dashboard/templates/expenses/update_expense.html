@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Metadata for character set and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Expense</title>
+    <title>Update Expense</title> <!-- Title of the page -->
 </head>
 <body>
+    <!--Extending the base template "base.html"-->
     {% extends "base.html" %}
 
+    <!-- Page title block -->
     {% block title %}Update Expense{% endblock %}
 
+<!-- Content block-->    
     {% block content %}
+
+        <!-- Heading for the expense update page -->
         <h2>Update Expense</h2>
+
+        <!-- Form to update the expense -->
         <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Update</button>
+            {% csrf_token %} <!-- CSRF token for form security -->    
+            {{ form.as_p }} <!-- Render form fields as paragraphs -->
+            <button type="submit">Update</button> <!-- Button to submit updated expense -->
         </form>
     {% endblock %}
 </body>

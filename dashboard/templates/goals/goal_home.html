@@ -3,39 +3,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Metadata for character set and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Goals</title>
+    <title>User Goals</title> <!-- Title of the page -->
 </head>
 <body>
+    <!-- Page title block -->
     {% block title %}Goals{% endblock %}
 
+    <!-- Content block-->    
     {% block content %}
     {% if user.is_authenticated %}
-
+    
+        <!-- Heading for the goal home page -->
         <h2>Your Goals:</h2>
+
+        <!-- List of user's goals -->
         <ul>
             {% for goal in goals %}
+
+            <!-- Displaying the details of the goal -->
                 <li>{{ goal.name }} - Current Amount/Target: ${{ goal.current_amount }}/${{ goal.target_amount }}
                      - Goal Date {{ goal.target_date }}
+
+                    <!-- Form to delete the goal -->
                     <form method="post" action="{% url 'finance:delete_goal' goal.id %}" style="display:inline;">
                         {% csrf_token %}
                         <button formnovalidate class = "btn btn-danger",type="submit">Delete</button>
                     </form>
+
+                    <!-- Link to update the goal -->
                     <a href="{% url 'finance:update_goal' goal.id %}">
                         <button formnovalidate class = "btn btn-warning",>Update</button>
                     </a>
                 </li>
             {% empty %}
+
+                <!-- Message when there are no goals -->
                 <li>You have no goals.</li>
             {% endfor %}
         </ul>
+
+        <!-- Link to add a new goal -->
         <a href="{% url 'finance:create_goal' %}">
             <button formnovalidate class = "btn btn-success",>Add Goal</button>
         </a>
     {% else %}
+
+        <!-- Message for users who are not logged in -->
         <p>You are not logged in</p>
-        <a href="{% url 'finance:login' %}">Log In</a>
+        <a href="{% url 'finance:login' %}">Log In</a> <!-- Link to log in -->
     {% endif %}
     {% endblock %}
 </body>

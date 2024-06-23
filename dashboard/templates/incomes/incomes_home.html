@@ -1,31 +1,43 @@
 {% extends "base.html" %}
 
-{% block title %}Incomes{% endblock %}
+{% block title %}Incomes{% endblock %} <!-- Page title block -->
 
 {% block content %}
     {% if user.is_authenticated %}
+    <!-- Heading for the user's incomes action -->
         <h2>Your Income Streams:</h2>
+
+         <!-- List of user's incomes -->
         <ul>
             {% for income in incomes %}
+            <!-- Displaying each income with its details-->
                 <li>Monthly Salary: {{income.monthly_salary}} Other Salary: {{income.other_income}}
+
+                    <!-- Form to delete the income -->
                     <form method="post" action="{% url 'finance:delete_income' income.id %}" style="display:inline;">
-                        {% csrf_token %}
+                        {% csrf_token %} <!-- CSRF token for form security -->
                         <button formnovalidate class = "btn btn-danger",type="submit">Delete</button>
                     </form>
+
+                    <!-- Link to update the income -->
                     <a href="{% url 'finance:update_income' income.id %}">
                         <button formnovalidate class = "btn btn-warning",>Update</button>
                     </a>
                 </li>
             {% empty %}
+                <!-- Message when there are no incomes -->
                 <li>You have no incomes.</li>
             {% endfor %}
         </ul>
+
+        <!-- Link to add a new income -->
         <a href="{% url 'finance:create_income' %}">
             <button formnovalidate class = "btn btn-success",>Add Income</button>
         </a>
     {% else %}
+        <!-- Message for users who are not logged in -->
         <p>You are not logged in</p>
-        <a href="{% url 'finance:login' %}">Log In</a>
+        <a href="{% url 'finance:login' %}">Log In</a> <!-- Link to log in -->
     {% endif %}
 {% endblock content %}
 

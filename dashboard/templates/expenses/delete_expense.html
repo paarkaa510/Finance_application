@@ -2,22 +2,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Metadata for character set and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirm Delete</title>
+    <title>Confirm Delete</title> <!-- Title of the page -->
 </head>
 <body>
+    <!--Extending the base template "home.html"-->
     {% extends "home.html" %}
 
-    {% block title %}Confirm Delete{% endblock %}
+    {% block title %}Confirm Delete{% endblock %}   <!-- Page title block -->  
 
     {% block content %}
+    <!-- Header prompting user to confirm deletion -->
     <h2>Are you sure you want to delete this expense?</h2>
+
+    <!-- Displaying the details of the expense to be deleted -->
     <p>Category: {{ expense.category }} - Description: {{ expense.description }} - Amount: {{ expense.amount }}</p>
+    
+    <!-- Form to confirm the deletion of the expense -->    
     <form method="post">
-        {% csrf_token %}
-        <button type="submit">Confirm</button>
-        <a href="{% url 'user-expenses' %}">Cancel</a>
+        {% csrf_token %} <!-- CSRF token for form security -->
+        <button type="submit">Confirm</button> <!-- Button to confirm the deletion -->
+        <a href="{% url 'user-expenses' %}">Cancel</a> <!-- Link to cancel and go back to user expenses -->
     </form>
     {% endblock %}
 </body>

@@ -2,18 +2,22 @@
 
 {% block title %}
     Add Income
-{% endblock %}
+{% endblock %} <!-- Page title block -->
 
 {% block content %}
     {% if user.is_authenticated %}
+    <!-- Heading for the income creation page -->
         <h2>Add Income</h2>
+        
+        <!-- Form to create a new income -->
         <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Save Income</button>
+            {% csrf_token %} <!-- CSRF token for form security -->
+            {{ form.as_p }}  <!-- Render form fields as paragraphs -->
+            <button type="submit">Save Income</button> <!-- Button to submit the form -->
         </form>
     {% else %}
+        <!-- Message for users who are not logged in -->
         <p>You need to be logged in to add income.</p>
     {% endif %}
-{% endblock %}
+{% endblock %} <!-- Content block -->
 
