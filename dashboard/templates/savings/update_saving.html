@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Metadata for character set and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Saving</title>
+    <title>Update Saving</title> <!-- Title of the page -->
 </head>
 <body>
     {% extends "base.html" %}
 
+    <!-- Page title block -->
     {% block title %}Update Saving{% endblock %}
 
+    <!-- Content block-->
     {% block content %}
+        <!-- Heading for the saving update section -->
         <h2>Update Saving</h2>
+        <!-- Form to update the saving -->
         <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Update</button>
+            {% csrf_token %} <!-- CSRF token for form security -->
+            {{ form.as_p }} <!-- Render form fields as paragraphs -->
+            <button type="submit">Update</button> <!-- Button to submit updated saving -->
         </form>
     {% endblock %}
 </body>

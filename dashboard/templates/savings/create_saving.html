@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 
-{% block title %}Create Savings{% endblock %}
+{% block title %}Create Savings{% endblock %} <!-- Page title block -->
 
 {% block content %}
     {% if user.is_authenticated %}
+    <!-- Heading for the savings creation page -->
         <h2>Create a New Savings</h2>
+
+        <!-- Form to create a new savings -->
         <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Save Savings</button>
+            {% csrf_token %} <!-- CSRF token for form security -->
+            {{ form.as_p }} <!-- Render form fields as paragraphs -->
+            <button type="submit">Save Savings</button> <!-- Button to submit the form -->
         </form>
     {% else %}
+        <!-- Message for users who are not logged in -->
         <p>You need to be logged in to create a savings.</p>
     {% endif %}
-{% endblock %}
+{% endblock %} <!-- Content block -->

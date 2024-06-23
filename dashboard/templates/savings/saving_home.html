@@ -3,38 +3,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Metadata for character set and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Savings</title>
+    <title>User Savings</title> <!-- Title of the page -->
 </head>
 <body>
  
-
+    <!-- Page title block -->
     {% block title %}Savings{% endblock %}
+
+    <!-- Content block-->
     {% block content %}
     {% if user.is_authenticated %}
+
+        <!-- Heading for the user savings section -->
         <h2>Your Savings:</h2>
+
+        <!-- List of user savings -->
         <ul>
             {% for saving in savings %}
+                <!-- Displaying the details of the saving -->
                 <li>Amount: {{saving.amount}}
+
+                    <!-- For to delete a saving -->
                     <form method="post" action="{% url 'finance:delete_savings' saving.id %}" style="display:inline;">
-                        {% csrf_token %}
-                        <button formnovalidate class = "btn btn-danger",type="submit">Delete</button>
+                        {% csrf_token %} <!-- CSRF token for form security -->
+                        <button formnovalidate class = "btn btn-danger",type="submit">Delete</button> <!-- Button to delete saving -->
                     </form>
+
+                    <!-- Link to update the saving -->
                     <a href="{% url 'finance:update_saving' saving.id %}">
                         <button formnovalidate class = "btn btn-warning",>Update</button>
                     </a>
                 </li>
             {% empty %}
+                <!-- Message when there are no savings -->
                 <li>You have no savings.</li>
             {% endfor %}
         </ul>
+        <!-- Link to add a new saving -->
         <a href="{% url 'finance:create_saving' %}">
             <button formnovalidate class = "btn btn-success",>Add Savings</button>
         </a>
     {% else %}
+        <!-- Message for users who are not logged in -->
         <p>You are not logged in</p>
-        <a href="{% url 'finance:login' %}">Log In</a>
+        <a href="{% url 'finance:login' %}">Log In</a> <!-- Link to log in -->
     {% endif %}
     {% endblock %}
 </body>
