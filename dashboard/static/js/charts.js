@@ -3,8 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Custom script loaded');
 
     const expensesData = JSON.parse(document.getElementById('expensesData').textContent);
-    const goalsData = JSON.parse(document.getElementById('goalsData').textContent);
-
     const expensesLabels = expensesData.map(expense => expense.category);
     const expensesAmounts = expensesData.map(expense => expense.total);
 
@@ -22,7 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }]
         }
     });
-
+    
+    const goalsData = JSON.parse(document.getElementById('goalsData').textContent);
     const goalsLabels = goalsData.map(goal => goal.name);
     const targetAmounts = goalsData.map(goal => goal.target_amount);
     const currentAmounts = goalsData.map(goal => goal.current_amount);

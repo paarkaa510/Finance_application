@@ -86,10 +86,9 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="text-m font-weight-bold text-warning text-uppercase mb-1" style="font-size: 24px;">
-                                                    Goals</div>
+                                                        Goals</div>
                                                 <canvas id="goalsBarChart"></canvas>
                                                 <script id="goalsData" type="application/json">{{ goals_data|safe }}</script>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -98,20 +97,39 @@
                             </div>
                         </div>
                                 <!-- new contains for new applications -->
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-xl-3 col-md-6 mb-4">
-                                            <div class="card border-left-info ">
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-3 col-md-6 mb-4">
-                                            <div class="card border-left-info ">
-                                            </div>
-                                        </div>
-
+                        <div class="container">
+                                    
+                            <div class="row">
+                                <div class="card border-left-warning ">
+                                    <div class="text-m font-weight-bold text-warning text-uppercase mb-1" style="font-size: 30px;">Goals List</div>
                                         
+
+                                            {% for goal in goals%}
+                                                <div class="card border mt-4">
+                                                    <div class="text-m font-weight-bold text-dark text-uppercase mb-1" style="font-size: 24px;">
+                                                        {{goal.name}}  &ensp;  ${{goal.current_amount}}/${{goal.target_amount}}
+                                                        <span class="date" style="position: absolute; top: 0; right: 0; font-size: 24px;">
+                                                            {{ goal.target_date|date:"F d, Y"}}
+                                                        </span></div>
+                                                    <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="{{ goal.percentage}}" aria-valuemin="0" aria-valuemax="100" style="height: 45px">
+                                                        <div class="{{goal.bar}}" style="width: {{goal.percentage }}%;"> <div class="text-right font-weight-bold" style="font-size: 20px;" > {{ goal.percentage|floatformat:2 }}%</div></div>
+                                                    </div>
+
+                                                </div>  
+                                            {% empty %}
+                                            <div class="col-12">
+                                                <div class="alert alert-warning" role="alert">
+                                                    No goals found. Please add a new goal.
+                                                </div>
+                                            </div>
+                                            {% endfor %}  
+
                                     </div>
                                 </div>
+                            </div>
+                            </div>
+                                
+                             
 
 
 

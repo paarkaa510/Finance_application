@@ -58,6 +58,8 @@ def update_goal(request, goal_id):
         form = GoalForm(instance=goal)
     return render(request, 'update_goal.html', {'form': form})
 
+
+#income views
 @login_required
 def create_income(request):
     if request.method == 'POST':
@@ -105,6 +107,7 @@ def update_income(request, income_id):
         form = IncomeForm(instance=income)
     return render(request, 'update_income.html', {'form': form})
 
+#expenses views
 @login_required
 def create_expense(request):
     if request.method == 'POST':
@@ -153,6 +156,7 @@ def update_expense(request, expense_id):
         form = ExpenseForm(instance=expense)
     return render(request, 'update_expense.html', {'form': form})
 
+#savings views
 @login_required
 def create_savings(request):
     if request.method == 'POST':
@@ -214,9 +218,10 @@ def not_used_yet(request):
 @login_required
 def home(request):
     expenses = Expenses.objects.filter(user=request.user)
-    goals = Goals.objects.filter(user=request.user)
+    goals = Goals.objects.filter(user=request.user).order_by('target_date')
     savings = Savings.objects.filter(user=request.user)
     incomes = Income.objects.filter(user=request.user)
+  
 
     total_savings = savings.aggregate(total=Sum('amount'))['total'] or 0
     total_income = incomes.aggregate(
@@ -224,7 +229,9 @@ def home(request):
     )['total'] or 0
     expenses_by_category = list(expenses.values('category').annotate(total=Sum('amount')))
     goals_data = list(goals.values('name', 'target_amount', 'current_amount'))
+
     
+
     # Convert Decimals to float for JSON serialization
     for expense in expenses_by_category:
         expense['total'] = float(expense['total'])
@@ -233,12 +240,32 @@ def home(request):
         goal['target_amount'] = float(goal['target_amount'])
         goal['current_amount'] = float(goal['current_amount'])
     
+
+    #change the progress bar color based on the percentage and save percentage
+    for progress in goals:
+        progress.percentage = (progress.current_amount / progress.target_amount) * 100
+        progress.bar =""
+        if progress.percentage >= 80:
+            progress.bar = "progress-bar bg-success"    
+        elif progress.percentage >= 50:
+            progress.bar = "progress-bar bg-warning"
+        else:    
+            progress.bar = "progress-bar bg-danger"
+        progress.save()
+        
+
     context = {
         'expenses_by_category': json.dumps(expenses_by_category),
         'goals_data': json.dumps(goals_data),
         'total_savings': total_savings,
         'total_income': total_income,
+        'goals': goals,
+
+        
+
+
+
     }
-    
     return render(request, 'home.html', context)
+
 
