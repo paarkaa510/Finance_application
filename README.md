@@ -7,8 +7,11 @@ and use both income and savings to set financial goals. Whether you're looking t
 expenses, this application provides the tools you need to stay on top of your finances.
 
 Table of Contents:
+
 Introduction
+
 Features
+
 Usage
 
 Features:
