@@ -29,7 +29,7 @@ Responsive Design: Access your financial data from Web Browser
 
 **Usage:**
 
-Accessing the Application
+Accessing the Application:
 
 Visit the Website: Run the server and open application in your default Web Browser 
 Sign Up: Create a new account using your email and a secure password.
