@@ -38,19 +38,19 @@ Log out: After youve completed using the application logout to make sure your
 information remains secure and is only accessable by you. 
 
 
-Income
+Income:
 
 Add Income: Navigate to the "Income" section and add your income sources and extra incone if applicable.
 
-Savings
+Savings:
 
 Add Savings: Go to the "Savings" section and input your amount into the savings column.
 
-Goals
+Goals:
 
 Define Goals: In the "Goals" section,you can set the name of your Goal, the target amount, the current
 amount you have to put towards the goal and the target date.
 
-Charts and Graphs
+Charts and Graphs:
 
 The cahrts and graphs alow you to visualize and compare information imputed from each category. 
