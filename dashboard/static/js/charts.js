@@ -21,44 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    const goalsData = JSON.parse(document.getElementById('goalsData').textContent);
-    const goalsLabels = goalsData.map(goal => goal.name);
-    const targetAmounts = goalsData.map(goal => goal.target_amount);
-    const currentAmounts = goalsData.map(goal => goal.current_amount);
     
-    const ctxBar = document.getElementById('goalsBarChart').getContext('2d');
-    if (window.goalsBarChart && typeof window.goalsBarChart.destroy === 'function') {
-        window.goalsBarChart.destroy();
-    }
-    window.goalsBarChart = new Chart(ctxBar, {
-        type: 'bar',
-        data: {
-            labels: goalsLabels,
-            datasets: [
-                {
-                    label: 'Current Amount',
-                    data: currentAmounts,
-                    backgroundColor: '#36A2EB'
-                },
-                {
-                    label: 'Target Amount',
-                    data: targetAmounts,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)'
-                }
-            ]
-        },
-        options: {
-            scales: {
-                x: {
-                    stacked: true
-                },
-                y: {
-                    stacked: true,
-                    beginAtZero: true
-                }
-            }
-        }
-    });
 });
 
 
