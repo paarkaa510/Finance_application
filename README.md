@@ -1,11 +1,6 @@
 ﻿# Fintrack_application
 # Created by: Antonio Scalfaro, Miah de Graft-Biney, Darwin Lutchman, Trang Huynh, Jonghwi Park
 
-Introduction:
-Fin-Track Capstone is a user-friendly web application that enables you to track your income, manage your savings,
-and use both income and savings to set financial goals. Whether you're looking to save for a vacation, a new gadget, or simply manage your daily 
-expenses, this application provides the tools you need to stay on top of your finances.
-
 Table of Contents:
 
 Introduction
@@ -13,6 +8,14 @@ Introduction
 Features
 
 Usage
+
+
+Introduction:
+
+Fin-Track Capstone is a user-friendly web application that enables you to track your income, manage your savings,
+and use both income and savings to set financial goals. Whether you're looking to save for a vacation, a new gadget, or simply manage your daily 
+expenses, this application provides the tools you need to stay on top of your finances.
+
 
 Features:
 Income Tracking: Log and categorize your income sources.
