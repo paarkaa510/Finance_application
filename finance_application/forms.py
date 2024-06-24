@@ -55,6 +55,13 @@ class ExpenseForm(forms.ModelForm):
         model = Expenses
         fields = ['category', 'description', 'amount']
 
+    def clean(self):
+        cleaned_data = super().clean()
+        amount = cleaned_data.get('amount')
+        
+        if amount is not None and amount <= 0:
+            self.add_error('amount', "Amount for the expense must be greater than 0.")
+
 #savings form
 class SavingsForm(forms.ModelForm):
     class Meta:
