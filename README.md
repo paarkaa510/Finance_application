@@ -1,5 +1,8 @@
 Fintrack_application
+
 Created by: Antonio Scalfaro, Miah de Graft-Biney, Darwin Lutchman, Trang Huynh, Jonghwi Park
+
+
 Table of Contents:
 
 Introduction
