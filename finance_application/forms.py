@@ -29,6 +29,9 @@ class GoalForm(forms.ModelForm):
         if current_amount is not None and current_amount <= 0:
             self.add_error('current_amount', "Current amount must be greater than zero.")
 
+        if target_amount < current_amount:
+            self.add_error('current_amount', "Current amount cannot be larger than target amount.")
+
 #income form
 class IncomeForm(forms.ModelForm):
     class Meta:

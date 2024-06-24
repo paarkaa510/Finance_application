@@ -22,6 +22,8 @@ class Goals(models.Model):
             raise ValueError("Current amount cannot be below $0.")
         if self.target_amount < 0:
             raise ValueError("Goal amount cannot be below $0.")
+        if self.target_amount < self.current_amount:
+            raise ValueError("Current amount cannot be greater than target amount")
         super(Goals, self).save(*args, **kwargs)
 
     def __str__(self):
