@@ -11,6 +11,8 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
+
 <h1>Hello, {{ user.username }}!!</h1>
 
 <body id="page-top">
@@ -20,7 +22,7 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Money Board</h1>
                     </div>
                     <!-- Content Row -->
                     <div class="row">
@@ -31,7 +33,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <div class="text-m font-weight-bold text-primary text-uppercase mb-1"style="font-size: 24px;">
                                                 Income</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${{ total_income|floatformat:2|intcomma }}</div>
                                         </div>
@@ -49,13 +51,9 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <div class="text-m font-weight-bold text-success text-uppercase mb-1"style="font-size: 24px;">
                                                 Saving</div>
-<<<<<<< HEAD
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{ total_savings|floatformat:2|intcomma }}</div>
-=======
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">${{ total_savings|floatformat:2|intcomma }}</div>
->>>>>>> finance_park
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -70,24 +68,13 @@
                             <div class="row">
                                 <!-- Expenses Breakdown Column -->
                                 <div class="col-xl-3 col-md-6 mb-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h2 class="card-title">Expenses Breakdown</h2>
-                                            <canvas id="expensesPieChart"></canvas>
-                                            <script id="expensesData" type="application/json">{{ expenses_by_category|safe }}</script>
-                                        </div>
-                                    </div>
-                                </div>
-                        
-                                <!-- Goals Column -->
-                                <div class="col-xl-6 col-md-6 mb-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h2 class="card-title">Goals</h2>
-                                            <canvas id="goalsBarChart"></canvas>
-                                            <script id="goalsData" type="application/json">{{ goals_data|safe }}</script>
-                                            <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                                                    <div id="progressBar" class="progress-bar bg-info" style="width: 0%"></div>
+                                    <div class="card border-left-info ">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="text-m font-weight-bold text-info text-uppercase mb-1" style="font-size: 24px;">
+                                                    Expenses</div>
+                                                <canvas id="expensesPieChart"></canvas>
+                                                <script id="expensesData" type="application/json">{{ expenses_by_category|safe }}</script>
                                             </div>
                                         </div>
                                     </div>
@@ -95,6 +82,40 @@
                                 
                             </div>
                         </div>
+                                <!-- new contains for new applications -->
+                        <div class="container">
+                                    
+                            <div class="row">
+                                <div class="card border-left-warning ">
+                                    <div class="text-m font-weight-bold text-warning text-uppercase mb-1" style="font-size: 30px;">Goals List</div>
+                                        
+
+                                            {% for goal in goals%}
+                                                <div class="card border mt-4">
+                                                    <div class="text-m font-weight-bold text-dark text-uppercase mb-1" style="font-size: 24px;">
+                                                        {{goal.name}}  &ensp;  ${{goal.current_amount}}/${{goal.target_amount}}
+                                                        <span class="date" style="position: absolute; top: 0; right: 0; font-size: 24px;">
+                                                            {{ goal.target_date|date:"F d, Y"}}
+                                                        </span></div>
+                                                    <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="{{ goal.percentage}}" aria-valuemin="0" aria-valuemax="100" style="height: 45px">
+                                                        <div class="{{goal.bar}}" style="width: {{goal.percentage }}%;"> <div class="text-right font-weight-bold" style="font-size: 20px;" > {{ goal.percentage|floatformat:2 }}%</div></div>
+                                                    </div>
+
+                                                </div>  
+                                            {% empty %}
+                                            <div class="col-12">
+                                                <div class="alert alert-warning" role="alert">
+                                                    No goals found. Please add a new goal.
+                                                </div>
+                                            </div>
+                                            {% endfor %}  
+
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                                
+                             
 
 
 

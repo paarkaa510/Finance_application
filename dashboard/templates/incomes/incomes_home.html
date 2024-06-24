@@ -4,8 +4,7 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-    <h1>Hi {{ user.username }}!</h1>
-        <h1>Your Income Streams:</h1>
+        <h2>Your Income Streams:</h2>
         <ul>
             {% for income in incomes %}
                 <li>Monthly Salary: {{income.monthly_salary}} Other Salary: {{income.other_income}}
@@ -17,6 +16,7 @@
                         <button formnovalidate class = "btn btn-warning",>Update</button>
                     </a>
                 </li>
+                <br/><br/>
             {% empty %}
                 <li>You have no incomes.</li>
             {% endfor %}

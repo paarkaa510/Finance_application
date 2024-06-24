@@ -4,24 +4,26 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <h2>Expenses</h2>
+        <h2>Your Expenses</h2>
         <ul>
             {% for expense in expenses %}
                 <li>Category: {{ expense.category }} - Description: {{ expense.description }} - Amount: {{ expense.amount }}
                     <form method="post" action="{% url 'finance:delete_expense' expense.id %}" style="display:inline;">
                         {% csrf_token %}
-                        <button type="submit">Delete</button>
+                        <button formnovalidate class = "btn btn-danger",type="submit">Delete</button>
                     </form>
                     <a href="{% url 'finance:update_expense' expense.id %}">
-                        <button>Update</button>
+                        <button formnovalidate class = "btn btn-warning",>Update</button>
                     </a>
                 </li>
+                <br/>
+                <br/>
             {% empty %}
                 <li>You have no expenses.</li>
             {% endfor %}
         </ul>
         <a href="{% url 'finance:create_expense' %}">
-            <button>Add Expense</button>
+            <button formnovalidate class = "btn btn-success",>Add Expense</button>
         </a>
     {% else %}
         <p>You are not logged in</p>

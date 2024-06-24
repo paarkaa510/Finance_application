@@ -17,6 +17,18 @@ class GoalForm(forms.ModelForm):
         if target_date < date.today():
             raise forms.ValidationError("The target date cannot be in the past.")
         return target_date
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        target_amount = cleaned_data.get('target_amount')
+        current_amount = cleaned_data.get('current_amount')
+
+        if target_amount is not None and target_amount <= 0:
+            self.add_error('target_amount', "Target amount must be greater than zero.")
+        
+        if current_amount is not None and current_amount <= 0:
+            self.add_error('current_amount', "Current amount must be greater than zero.")
+
 #income form
 class IncomeForm(forms.ModelForm):
     class Meta:
@@ -28,11 +40,11 @@ class IncomeForm(forms.ModelForm):
         monthly_salary = cleaned_data.get('monthly_salary')
         other_income = cleaned_data.get('other_income')
 
-        if monthly_salary is not None and monthly_salary < 0:
-            self.add_error('monthly_salary', "Monthly salary cannot be negative.")
+        if monthly_salary is not None and monthly_salary <= 0:
+            self.add_error('monthly_salary', "Monthly salary must be greater than zero.")
         
-        if other_income is not None and other_income < 0:
-            self.add_error('other_income', "Other income cannot be negative.")
+        if other_income is not None and other_income <= 0:
+            self.add_error('other_income', "Other income must be greater than zero.")
 
 #expense form
 class ExpenseForm(forms.ModelForm):
@@ -45,3 +57,11 @@ class SavingsForm(forms.ModelForm):
     class Meta:
         model = Savings
         fields = ['amount']
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        amount = cleaned_data.get('amount')
+
+        if amount is not None and amount <= 0:
+            self.add_error('amount', "Savings amount must be greater than zero.")    
+
