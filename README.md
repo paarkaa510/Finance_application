@@ -29,10 +29,12 @@ Responsive Design: Access your financial data from Web Browser
 Usage:
 
 Accessing the Application
-Visit the Website: run the server and open application in your default Web Browser 
+
+Visit the Website: Run the server and open application in your default Web Browser 
 Sign Up: Create a new account using your email and a secure password.
 Log In: Log in to access your personal dashboard.
-Log out:
+Log out: After youve completed using the application logout to make sure your 
+information remains secure and is only accessable by you. 
 
 
 Income
