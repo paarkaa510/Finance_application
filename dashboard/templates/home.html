@@ -28,7 +28,7 @@
                     <div class="row">
 
                         <!-- income card-->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-6 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -46,7 +46,7 @@
                         </div>
 
                         <!-- saving card -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-6 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -66,8 +66,9 @@
 
                         <div class="container">
                             <div class="row">
-                                <!-- Expenses Breakdown Column -->
-                                <div class="col-xl-3 col-md-6 mb-4">
+                                
+                                <!-- monthly free money  -->
+                                <div class="col-xl-6 col-md-6 mb-4">
                                     <div class="card border-left-info ">
                                         <div class="card">
                                             <div class="card-body">
@@ -79,11 +80,46 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Expenses Breakdown Column -->
+                                <div class="col-xl-6 col-md-6 mb-4">
+                                    <div class="card border-left-danger ">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="text-m font-weight-bold text-danger text-uppercase mb-1" style="font-size: 24px;">
+                                                    Monthly Spendable Budget</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 md-1 ">${{ spendable_income|floatformat:2|intcomma  }} </div>
+
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 mt-3 d-flex justify-content-center">
+                                                    <a href="/finance/user-savings" class="btn btn-success mr-2" role="button" >Update Savings</a>
+                                                    <a href="/finance/user-goals" class="btn btn-warning" role="button">Update Goals</a>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 mb-4">
+                                            <div class="card border-left-danger mt-3 ">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="text-m font-weight-bold text-danger text-uppercase mb-1" style="font-size: 24px;">
+                                                            Expense Breakdown</div>
+                                                            {% for expense in expenses%}
+                                                            <div class="h5 mb-0 font-weight-bold text-gray-800 md-1 ">{{ expense.category }}: ${{ expense.amount|floatformat:2|intcomma }}</div>
+                                                            {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 
                             </div>
                         </div>
                                 <!-- new contains for new applications -->
-                        <div class="container">
+                        <div class="container-fluid">
                                     
                             <div class="row">
                                 <div class="card border-left-warning ">

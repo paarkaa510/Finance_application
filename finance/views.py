@@ -156,6 +156,7 @@ def update_expense(request, expense_id):
         form = ExpenseForm(instance=expense)
     return render(request, 'update_expense.html', {'form': form})
 
+
 #savings views
 @login_required
 def create_savings(request):
@@ -223,10 +224,14 @@ def home(request):
     incomes = Income.objects.filter(user=request.user)
   
 
+    total_expenses = expenses.aggregate(total=Sum('amount'))['total'] or 0
     total_savings = savings.aggregate(total=Sum('amount'))['total'] or 0
     total_income = incomes.aggregate(
         total=Sum(ExpressionWrapper(F('monthly_salary') + F('other_income'), output_field=DecimalField()))
     )['total'] or 0
+    spendable_income = total_income -total_expenses
+
+
     expenses_by_category = list(expenses.values('category').annotate(total=Sum('amount')))
     goals_data = list(goals.values('name', 'target_amount', 'current_amount'))
 
@@ -260,6 +265,8 @@ def home(request):
         'total_savings': total_savings,
         'total_income': total_income,
         'goals': goals,
+        "spendable_income": spendable_income,
+        "expenses": expenses,
 
         
 
