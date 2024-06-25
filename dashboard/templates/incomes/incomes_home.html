@@ -21,9 +21,11 @@
                 <li>You have no incomes.</li>
             {% endfor %}
         </ul>
+        {% if not incomes %}
         <a href="{% url 'finance:create_income' %}">
             <button formnovalidate class = "btn btn-success",>Add Income</button>
         </a>
+        {% endif %}
     {% else %}
         <p>You are not logged in</p>
         <a href="{% url 'finance:login' %}">Log In</a>
