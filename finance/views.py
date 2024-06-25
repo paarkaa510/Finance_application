@@ -267,6 +267,7 @@ def home(request):
         'goals': goals,
         "spendable_income": spendable_income,
         "expenses": expenses,
+        "total_expenses": total_expenses,
 
         
 
