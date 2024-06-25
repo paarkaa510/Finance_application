@@ -29,6 +29,9 @@ class GoalForm(forms.ModelForm):
         if current_amount is not None and current_amount <= 0:
             self.add_error('current_amount', "Current amount must be greater than zero.")
 
+        if target_amount < current_amount:
+            self.add_error('current_amount', "Current amount cannot be larger than target amount.")
+
 #income form
 class IncomeForm(forms.ModelForm):
     class Meta:
@@ -51,6 +54,13 @@ class ExpenseForm(forms.ModelForm):
     class Meta:
         model = Expenses
         fields = ['category', 'description', 'amount']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        amount = cleaned_data.get('amount')
+        
+        if amount is not None and amount <= 0:
+            self.add_error('amount', "Amount for the expense must be greater than 0.")
 
 #savings form
 class SavingsForm(forms.ModelForm):
