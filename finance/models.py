@@ -53,7 +53,9 @@ CATEGORY_CHOICES = [
     ('Housing', 'Housing'),
     ('Utilities', 'Utilities'),
     ('Food', 'Food'),
-    ('Leisure', 'Leisure'),
+    ('Loans', 'Loans'),
+    ('Insurance', 'Insurance'),
+    ('Subscription', 'Subscription'),
     ('Other', 'Other'),
 ]
 

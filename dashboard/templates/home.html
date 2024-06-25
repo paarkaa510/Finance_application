@@ -12,9 +12,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<h1>Hello, {{ user.username }}!!</h1>
-
+<p class="font-weight-bold"style="font-size: 35px;">Hello, {{ user.username }}!</p>
 <body id="page-top">
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
@@ -22,7 +20,6 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Money Board</h1>
                     </div>
                     <!-- Content Row -->
                     <div class="row">
@@ -34,7 +31,7 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-m font-weight-bold text-primary text-uppercase mb-1"style="font-size: 24px;">
-                                                Income</div>
+                                                Monthly Income</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${{ total_income|floatformat:2|intcomma }}</div>
                                         </div>
                                         <div class="col-auto">
@@ -52,7 +49,7 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-m font-weight-bold text-success text-uppercase mb-1"style="font-size: 24px;">
-                                                Saving</div>
+                                                Total Savings</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">${{ total_savings|floatformat:2|intcomma }}</div>
                                         </div>
                                         <div class="col-auto">
@@ -73,7 +70,7 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="text-m font-weight-bold text-info text-uppercase mb-1" style="font-size: 24px;">
-                                                    Expenses</div>
+                                                    Monthly Expenses</div>
                                                 <canvas id="expensesPieChart"></canvas>
                                                 <script id="expensesData" type="application/json">{{ expenses_by_category|safe }}</script>
                                             </div>
@@ -83,6 +80,23 @@
 
                                 <!-- Expenses Breakdown Column -->
                                 <div class="col-xl-6 col-md-6 mb-4">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 mb-4">
+                                            <div class="card border-left-danger ">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="text-m font-weight-bold text-danger text-uppercase mb-1" style="font-size: 24px;">
+                                                            Expense Breakdown</div>
+                                                            {% for expense in expenses%}
+                                                            <div class="h5 mb-0 font-weight-bold text-gray-800 md-1 ">{{ expense.category }} | {{expense.description}} : ${{ expense.amount|floatformat:2|intcomma }}</div>
+                                                            {% endfor %}
+                                                            <div class="h5 mb-0 fw-bold text-Black-800 mt-3">Total Expenses: ${{ total_expenses|floatformat:2|intcomma}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Monthly Spendable APPLICATION -->
                                     <div class="card border-left-danger ">
                                         <div class="card">
                                             <div class="card-body">
@@ -98,34 +112,19 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-xl-12 col-md-12 mb-4">
-                                            <div class="card border-left-danger mt-3 ">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="text-m font-weight-bold text-danger text-uppercase mb-1" style="font-size: 24px;">
-                                                            Expense Breakdown</div>
-                                                            {% for expense in expenses%}
-                                                            <div class="h5 mb-0 font-weight-bold text-gray-800 md-1 ">{{ expense.category }}: ${{ expense.amount|floatformat:2|intcomma }}</div>
-                                                            {% endfor %}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 
                             </div>
                         </div>
-                                <!-- new contains for new applications -->
+
+
+                        <!-- new contains for new applications -->
                         <div class="container-fluid">
                                     
                             <div class="row">
                                 <div class="card border-left-warning ">
+                                    <!-- GOALS APPLICATION -->
                                     <div class="text-m font-weight-bold text-warning text-uppercase mb-1" style="font-size: 30px;">Goals List</div>
-                                        
-
                                             {% for goal in goals%}
                                                 <div class="card border mt-4">
                                                     <div class="text-m font-weight-bold text-dark text-uppercase mb-1" style="font-size: 24px;">
@@ -136,7 +135,12 @@
                                                     <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="{{ goal.percentage}}" aria-valuemin="0" aria-valuemax="100" style="height: 45px">
                                                         <div class="{{goal.bar}}" style="width: {{goal.percentage }}%;"> <div class="text-right font-weight-bold" style="font-size: 20px;" > {{ goal.percentage|floatformat:2 }}%</div></div>
                                                     </div>
-
+                                                    {% if goal.percentage == 100 %}
+                                                        <div class="text-success font-weight-bold text-uppercase mb-1" style="font-size: 24px;">Congratulations! You have reached your goal!</div>
+                                                        <div><a href="/finance/user-goals" class="btn btn-danger position-absolute bottom-0 end-0 " role="button">Update Goals</a></div>
+                                                        
+                                                    {% endif %}
+                                            </button>
                                                 </div>  
                                             {% empty %}
                                             <div class="col-12">
